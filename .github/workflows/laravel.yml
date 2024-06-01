@@ -29,6 +29,7 @@ jobs:
         touch database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan test
