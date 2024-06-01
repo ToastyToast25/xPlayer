@@ -1,0 +1,27 @@
+name: PHP Lint (Pint)
+on: [push, pull_request]
+jobs:
+  phplint:
+    strategy:
+      matrix:
+        operating-system:
+          - ubuntu-24.04
+    name: ${{ matrix.operating-system }}
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Pint
+        uses: aglipanci/laravel-pint-action@2.0.0
+        with:
+          preset: psr12
+          verboseMode: true
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: PHP Style Change (Laravel Pint CI)
+          commit_user_name: ToastyToast25
+          commit_user_email: support@spacemantv.com
+          commit_author: ToastyToast25 <support@spacemantv.com>
