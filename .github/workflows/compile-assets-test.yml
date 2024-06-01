@@ -26,13 +26,14 @@ jobs:
         env:
           REDIS_CONFIGURE_OPTS: --enable-redis
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
       - name: Install Specific NPM Version
-        run: npm install -g npm@1.0.4
+        run: npm install -g npm@latest
       - name: Install Composer Dependencies
         env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
       - name: Install JS Dependencies
