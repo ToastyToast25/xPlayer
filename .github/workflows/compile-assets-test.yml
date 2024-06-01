@@ -16,13 +16,13 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup PHP 8.3.7
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@v4
         with:
           php-version: ${{ matrix.php-version }}
           extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis-phpredis/phpredis@6.0.1
           ini-values: error_reporting=E_ALL
           coverage: pcov
-          tools: composer:v2
+          tools: composer:v4
         env:
           REDIS_CONFIGURE_OPTS: --enable-redis
       - name: Setup Node.js
