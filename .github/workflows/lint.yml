@@ -19,9 +19,11 @@ jobs:
           preset: psr12
           verboseMode: true
       - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: PHP Style Change (Laravel Pint CI)
           commit_user_name: ToastyToast25
           commit_user_email: support@spacemantv.com
           commit_author: ToastyToast25 <support@spacemantv.com>
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
