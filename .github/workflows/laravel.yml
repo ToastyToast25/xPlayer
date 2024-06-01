@@ -7,14 +7,18 @@ on:
 
 jobs:
   laravel-tests:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+    - uses: actions/checkout@v4
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
       with:
         php-version: '8.3.7'
-    - uses: actions/checkout@v4
+        extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis
+        ini-values: error_reporting=E_ALL
+        coverage: pcov
+        tools: composer:v2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
@@ -27,6 +31,16 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+    - name: Install Specific NPM Version
+      run: npm install -g npm@1.0.4
+    - name: Install JS Dependencies
+      run: npm install
+    - name: Compile Assets (Vite)
+      run: npm run build
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
