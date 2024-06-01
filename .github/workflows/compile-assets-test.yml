@@ -25,15 +25,17 @@ jobs:
           tools: composer:v2
         env:
           REDIS_CONFIGURE_OPTS: --enable-redis
-      - name: Configure Bun
-        uses: oven-sh/setup-bun@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          bun-version: latest
+          node-version: '16'
+      - name: Install Specific NPM Version
+        run: npm install -g npm@1.0.4
       - name: Install Composer Dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
       - name: Install JS Dependencies
-        run: bun install
+        run: npm install
       - name: Compile Assets (Vite)
-        run: bun run build
+        run: npm run build
