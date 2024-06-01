@@ -36,7 +36,7 @@ jobs:
       with:
         node-version: '20'
     - name: Install Specific NPM Version
-      run: npm install -g npm@1.0.4
+      run: npm install -g npm@latest
     - name: Install JS Dependencies
       run: npm install
     - name: Compile Assets (Vite)
